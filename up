@@ -1,0 +1,1 @@
+export INSTALLER=ConnectAll_Unix_2_8_3_R67dc0c2b_64.sh ; export VERSION=2.8.3.11; export CONNECTALL=./mule; docker-compose up

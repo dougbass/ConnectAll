@@ -1,0 +1,18 @@
+FROM ubuntu:14.04
+RUN mkdir /ConnectAll
+WORKDIR /ConnectAll
+ADD connectall.varfile /ConnectAll/. 
+ARG INSTALLER
+ADD ${INSTALLER} /ConnectAll/ConnectAll.sh
+ADD install.sh /ConnectAll/.
+ADD start /ConnectAll/.
+ADD stop /ConnectAll/.
+ADD readme.html /ConnectAll/.
+ADD setup /ConnectAll/.
+ENV MULE_HOME=/ConnectAll/mulesoft/mule-standalone-3.6.1
+#ADD .profile /root/.profile
+ENV CONNECTALL_HOME=/ConnectAll/mulesoft/mule-standalone-3.6.1/database
+ENV CATALINA_HOME=/ConnectAll/CATomcat
+ENV JAVA_HOME=/usr/local/bin/java1.7/jdk1.7.0_79
+ENTRYPOINT ["/ConnectAll/install.sh","/ConnectAll/ConnectAll.sh","connectall.varfile","/bin/bash -c /ConnectAll/mulesoft/mule-standalone-3.6.1/bin/mule","tail -f /ConnectAll/mulesoft/mule-standalone-3.6.1/logs/mule.log"]
+#ENTRYPOINT ["tail","-f","/dev/null"]
