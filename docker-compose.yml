@@ -1,0 +1,28 @@
+version: '3'
+services:
+  sql:
+    image: "mysql:5.6"
+    environment:
+    - MYSQL_ALLOW_EMPTY_PASSWORD=1
+    labels:
+      - com.connectall.com.tier = database
+  app:
+    depends_on: 
+    - sql
+    labels:
+      - com.connectall.com.tier = app
+    build:
+      context: .
+      dockerfile: "connectall.docker"
+      args:
+        INSTALLER: ${INSTALLER:?The INSTALLER environment variable must include ConnectAll installer script filename}
+    image: connectall_app:${VERSION:?The VERSION environment variable must include the ConnectAll version eg 2.8.2}
+    ports:
+      - "7070:7070"
+      - "8090:8090"
+      - "80:8080"
+    volumes:
+      - ${CONNECTALL:-mule}:/ConnectAll/mulesoft
+
+volumes:
+  mule:

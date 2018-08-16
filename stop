@@ -1,0 +1,3 @@
+. ~/.profile
+$MULE_HOME/bin/mule start
+$CATALINA_HOME/bin/startup.sh
