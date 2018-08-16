@@ -1,0 +1,59 @@
+#!/bin/bash
+# chkconfig: 2345 20 80
+# description: Start and stop tomcat the ConnectAll UI
+
+source /root/.bash_profile
+
+tomcat_home=/ConnectAll/CATomcat
+startup=$tomcat_home/bin/startup.sh
+shutdown=$tomcat_home/bin/shutdown.sh
+
+echo "Using MULE_HOME:       $MULE_HOME"
+echo "Using CONNECTALL_HOME:       $CONNECTALL_HOME"
+
+start(){
+   echo -n "Starting Tomcat service:"
+   cd $tomcat_home
+   $startup
+   echo "done"
+}
+
+stop(){
+   echo -n "Shutting down tomcat: "
+   cd $tomcat_home
+   $shutdown
+   echo "done."
+}
+
+status(){
+    numproc=`ps -ef | grep catalina | grep -v "grep catalina" | wc -l`
+    if [ $numproc -gt 0 ]; then
+       echo "Tomcat is running..."
+    else
+       echo "Tomcat is stopped..."
+    fi
+}
+
+restart(){
+   stop
+   start
+}
+
+# See how we were called.
+case "$1" in
+start)
+   start
+   ;;
+stop)
+   stop
+   ;;
+status)
+   status
+   ;;
+restart)
+   restart
+   ;;
+*)
+   echo $"Usage: $0 {start|stop|status|restart}"
+   exit 1
+esac

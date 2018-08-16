@@ -1,0 +1,50 @@
+version: '3'
+services:
+  sql:
+    image: "mysql:5.6"
+    environment:
+    - MYSQL_ALLOW_EMPTY_PASSWORD=1
+    - MYSQL_DATABASE=connectall
+    labels:
+      - com.connectall.com.tier = database
+  mule:
+    depends_on: 
+    - sql
+    labels:
+      - com.connectall.com.tier = backend
+    build:
+      context: .
+      dockerfile: "connectall_mule.docker"
+      args:
+        - INSTALLER=${INSTALLER:?The INSTALLER environment variable must include ConnectAll installer script filename}
+    image: connectall_mule:${VERSION:?The VERSION environment variable must include the ConnectAll version eg 2.8.2}
+
+    ports:
+      - "${PUSH_PORT:-7070}:7070"
+      - "${GENERIC_PORT:-8090}:8090"
+      - "${ATTACHMENT_DOWNLOAD_PORT:-60000}:60000"
+      - "${RENDERER_PORT:-8098}:8098"
+      # Ports internal to the container that tomcat will need access to
+#		config.port=http:\/\/mule:8081\/config\/refresh
+#		activity.monitor.port=http:\/\/mule:9080
+#		scheduler.service.port=http:\/\/mule:9090
+    volumes:
+      - ${CONNECTALL:-mule}:/ConnectAll/mulesoft
+
+  tomcat:
+    depends_on: 
+    - sql
+    labels:
+      - com.connectall.com.tier = gui
+    build:
+      context: .
+      dockerfile: "connectall_ui.docker"
+      args:
+        - INSTALLER=${INSTALLER:?The INSTALLER environment variable must include ConnectAll installer script filename}
+    image: connectall_ui:${VERSION:?The VERSION environment variable must include the ConnectAll version eg 2.8.2}
+    ports:
+      - "${WEB_PORT:-8080}:8080"
+    volumes:
+      - ${CONNECTALL:-mule}:/ConnectAll/mulesoft
+volumes:
+  mule:

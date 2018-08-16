@@ -1,0 +1,18 @@
+#FROM ubuntu:14.04
+FROM centos:latest
+RUN yum -y install initscripts && yum clean all
+RUN mkdir /ConnectAll
+WORKDIR /ConnectAll
+ADD connectall_mule.varfile /ConnectAll/. 
+ARG INSTALLER
+ADD ${INSTALLER} /ConnectAll/ConnectAll.sh
+ADD install2.sh /ConnectAll/.
+ADD mule.sh /etc/init.d/.
+ENV CONNECTALL_HOME=/ConnectAll/mulesoft/mule-standalone-3.6.1/database
+ENV CATALINA_HOME=/ConnectAll/CATomcat
+ENV JAVA_HOME=/usr/local/bin/java1.7/jdk1.7.0_79
+ADD shutdown_tomcat.sh /ConnectAll/.
+#ENTRYPOINT ["/ConnectAll/mulesoft/mule-standalone-3.6.1/bin/mule"]
+ENTRYPOINT ["/ConnectAll/install2.sh","/ConnectAll/ConnectAll.sh","connectall_mule.varfile","nohup /ConnectAll/shutdown_tomcat.sh","tail -f /ConnectAll/mulesoft/mule-standalone-3.6.1/logs/mule.log"]
+#tail -f /dev/null"]
+

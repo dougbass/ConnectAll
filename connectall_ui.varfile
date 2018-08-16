@@ -1,0 +1,36 @@
+#install4j response file for ConnectAll 2.8.3.R67dc0c2b
+#Sun Jul 15 15:27:26 UTC 2018
+sys.installationDir=/ConnectAll
+jdbc.user=root
+dbname=connectall
+sys.languageId=en
+sys.component.262$Boolean=true
+jdbc.url=sql
+javaHome=/usr/local/bin/java1.7
+javaVersion$Integer=0
+uiShutdownPort=8005
+# mule
+sys.component.5397$Boolean=false
+#tomcat
+sys.component.203$Boolean=true
+# java
+sys.component.11552$Boolean=true
+upgradeOption$Integer=0
+DbType$Integer=2
+tomcatHome=/ConnectAll/CATomcat
+sys.adminRights$Boolean=true
+
+# Ports available to the other docker nodes
+schedulerServicePort=9090
+configPort=8081
+activityMonitorPort=9080
+
+# The shared volume to store the application link jsons
+CONNECTALL_HOME=/ConnectAll/mulesoft/mule-standalone-3.6.1/database
+
+# Ports available outside docker
+pushServicePort=7070
+configGUIPort=8080
+genericRestServicePort=8090
+
+
