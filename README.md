@@ -61,7 +61,7 @@ export CONNECTALL=./mule; export INSTALLER=ConnectAll_Unix_2_8_3_R67dc0c2b_64.sh
 * Centos:latest for the mule and tomcat images
 
 ## Limitations
-* The dashboard feature in the ConnectAll user interface reports a "mule" error. This will be fixed soon.
+* The dashboard feature has been fixed in the ConnectAll 2.8.4.2 build. Be sure to install this or a later version.
 * Additional nodes (i.e. a cluster) cannot be spawned at this time but multiple containers (i.e. a vertical partition) can be started using different ports and file storage.
 
 ## Find Us
