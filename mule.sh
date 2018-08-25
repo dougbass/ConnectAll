@@ -5,8 +5,8 @@
 source /root/.bash_profile
 
 home=$MULE_HOME
-startup=$home/bin/mule start
-shutdown=$home/bin/muke stop
+startup="$home/bin/mule start"
+shutdown="$home/bin/mule stop"
 
 echo "Using MULE_HOME:       $MULE_HOME"
 echo "Using CONNECTALL_HOME:       $CONNECTALL_HOME"
@@ -19,7 +19,7 @@ start(){
 }
 
 stop(){
-   echo -n "Shutting down muld: "
+   echo -n "Shutting down mule: "
    cd $home
    $shutdown
    echo "done."
