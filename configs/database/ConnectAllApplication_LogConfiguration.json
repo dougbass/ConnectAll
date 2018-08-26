@@ -1,0 +1,6 @@
+{
+  "logs": [
+    "/ConnectAll/mulesoft/mule-standalone-3.6.1/logs/mule.log",
+    "/ConnectAll/CATomcat/logs/ConnectAll.log"
+  ]
+}

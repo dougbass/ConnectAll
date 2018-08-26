@@ -1,6 +1,5 @@
 #!/bin/bash
 date
-echo Sleeping while mounts are created
 while ! [ -f /ConnectAll/mulesoft/mule-standalone-3.6.1/logs/mule.log ];
 do
     echo "Waiting for mule to finish installation"
@@ -20,7 +19,7 @@ if [ -f /ConnectAll/mulesoft/upgrade.sh ]; then
   cd /ConnectAll
   echo "Make all the script executable"
   chmod +x $1
-  chkconfig --add tomcat
+  #chkconfig --add tomcat
   echo "Run the upgrade script"
   /ConnectAll/mulesoft/upgrade.sh -varfile /ConnectAll/connectall_ui.varfile -q  -console   -Dinstall4j.keepLog=true   -Dinstall4j.logToStderr=true 
   sleep 60
@@ -32,11 +31,11 @@ else
     cd /ConnectAll
     echo "Make all the script executable"
     chmod +x $1
-    chkconfig --add tomcat
+    #chkconfig --add tomcat
     echo "Execute the installer"
     /ConnectAll/ConnectAll.sh -varfile /ConnectAll/connectall_ui.varfile -q  -console   -Dinstall4j.keepLog=true   -Dinstall4j.logToStderr=true 
     sleep 60
-    /ConnectAll/set_mule_hostname.sh
+    #/ConnectAll/set_mule_hostname.sh
     $CATALINA_HOME/bin/shutdown.sh
   fi
 fi

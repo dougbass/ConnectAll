@@ -1,18 +1,33 @@
 #FROM ubuntu:14.04
 FROM centos:latest
-RUN yum -y install initscripts && yum clean all
-RUN mkdir /ConnectAll
-WORKDIR /ConnectAll
-ADD connectall_mule.varfile /ConnectAll/. 
-ARG INSTALLER
-ADD ${INSTALLER} /ConnectAll/ConnectAll.sh
-ADD install2.sh /ConnectAll/.
-ADD mule.sh /etc/init.d/.
-ENV CONNECTALL_HOME=/ConnectAll/mulesoft/mule-standalone-3.6.1/database
+ENV MULE_HOME=/ConnectAll/mulesoft/mule-standalone-3.6.1
+ENV CONNECTALL_HOME=$MULE_HOME/database
 ENV CATALINA_HOME=/ConnectAll/CATomcat
 ENV JAVA_HOME=/usr/local/bin/java1.7/jdk1.7.0_79
-ADD shutdown_tomcat.sh /ConnectAll/.
-#ENTRYPOINT ["/ConnectAll/mulesoft/mule-standalone-3.6.1/bin/mule"]
-ENTRYPOINT ["/ConnectAll/install2.sh","/ConnectAll/ConnectAll.sh","connectall_mule.varfile","nohup /ConnectAll/shutdown_tomcat.sh","tail -f /ConnectAll/mulesoft/mule-standalone-3.6.1/logs/mule.log"]
-#tail -f /dev/null"]
+ARG INSTALLER
+#RUN yum -y install initscripts && yum clean all
+#COPY configs/database/* /ConnectAll/mulesoft/mule-standalone-3.6.1/database/
+#WORKDIR /ConnectAll/mulesoft/mule-standalone-3.6.1/conf
+#COPY configs/conf/ConnectAll.properties /ConnectAll/mulesoft/mule-standalone-3.6.1/conf
+#COPY connectall_mule.varfile ${INSTALLER} install2.sh shutdown_tomcat.sh /ConnectAll/
+#RUN mkdir /ConnectAll/mulesoft/mule-standalone-3.6.1/conf
+#ADD conf/* /ConnectAll/mulesoft/mule-standalone-3.6.1/conf/
+#ADD conf/ConnectAll.properties /ConnectAll/mulesoft/mule-standalone-3.6.1/conf
+#RUN mkdir /ConnectAll/mulesoft/mule-standalone-3.6.1/database
+#ADD database/* /ConnectAll/mulesoft/mule-standalone-3.6.1/database/
 
+#WORKDIR /ConnectAll
+WORKDIR /ConnectAll
+
+#COPY ${INSTALLER} .
+COPY connectall_mule.varfile install2.sh shutdown_tomcat.sh /ConnectAll/
+#ADD connectall_mule.varfile /ConnectAll/. 
+ADD ${INSTALLER} /ConnectAll/ConnectAll.sh
+#ADD install2.sh /ConnectAll/.
+#ADD mule.sh /etc/init.d/.
+#ADD shutdown_tomcat.sh /ConnectAll/.
+
+COPY configs/database configs/conf /ConnectAll/
+
+ENTRYPOINT ["/ConnectAll/install2.sh","/ConnectAll/ConnectAll.sh","connectall_mule.varfile","nohup /ConnectAll/shutdown_tomcat.sh","tail -f /ConnectAll/mulesoft/mule-standalone-3.6.1/logs/mule.log"]
+#ENTRYPOINT ["/usr/bin/tail","-f","/dev/null"]
