@@ -5,9 +5,12 @@ ConnectAll is a **commercial** and licensed application integration platform bas
 ## Getting Started
 
 ConnectALL is an enterprise application integration solution that connects multiple tools and applications, enabling a company’s development and management teams to collaborate efficiently and flawlessly across multiple development platforms. Easy-to-buy, easy-to-install, and easy-to-use, ConnectALL meets strict enterprise governance requirements. It leverages commercial Enterprise Service Bus (ESB) technology to achieve an enterprise-grade infrastructure with clustering, multi-tenancy architecture, multiple server support both in the cloud and on-premise, traceability, and audit trails.
+
 More details on the ConnectAll product including a complete documentation set can be found here: https://www.connectall.com.
 
 To start the container first install docker for your machine, download the contents of this git project, and download the ConnectAll product from the website. To get access to the ConnectAll installer please fill out the form here: https://www.connectall.com/contact/.
+
+An alternative is simply search for connectall and run the image hosted by me (dougbass).
 
 Once everything is ready, run the docker-compose command. For an example see the file "up".
 
@@ -66,7 +69,7 @@ export CONNECTALL=./mule; export INSTALLER=ConnectAll_Unix_2_8_3_R67dc0c2b_64.sh
 
 ## Find Us
 
-* [GitHub](https://github.com/dougbass/ConnectAll/edit/3-tier)
+* [GitHub](https://github.com/dougbass/ConnectAll)
 * [ConnectAll](https://www.connectall.com)
 * [Support](https://jira.connectall.com/servicedesk/customer/portal/11)
 
