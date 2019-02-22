@@ -69,7 +69,7 @@ export CONNECTALL=./mule; export INSTALLER=ConnectAll_Unix_2_8_3_R67dc0c2b_64.sh
 
 ## Find Us
 
-* [GitHub](https://github.com/dougbass/ConnectAll/edit/3-tier)
+* [GitHub](https://github.com/dougbass/ConnectAll)
 * [ConnectAll](https://www.connectall.com)
 * [Support](https://jira.connectall.com/servicedesk/customer/portal/11)
 
